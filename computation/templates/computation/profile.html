@@ -1,0 +1,60 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<style>
+    .profile-pic {
+        max-width: 200px;
+        max-height: 200px;
+        margin: 0 auto;
+        border-radius: 50%;
+    }
+</style>
+<br>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a class="btn btn-danger " href="">Back to Profile</a>
+            <hr>
+            <h3>Account Profile</h3>
+            <hr>
+            <img class="profile-pic" src="{{request.user.staff.profile_pic.url}}" alt="profile-pic">
+            <h5>Welcome! <strong>{{request.user.staff.name}}</strong></h5>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                 {{form.as_p}}
+
+                <input class="btn btn-primary" type="submit" name="Update Information" id="">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-5 d-flex align-items-center">
+        <h1>Sliding labels for Bootstrap forms</h1>
+      </div>
+      <div class="col-md-6 offset-md-1">
+        <form class="mt-4 mt-md-0">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text"/>
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname</label>
+            <input class="form-control" type="text"/>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input class="form-control" type="email"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> -->
+
+{% endblock %}

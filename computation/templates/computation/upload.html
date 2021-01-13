@@ -1,0 +1,203 @@
+{% extends 'computation/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .hidden{
+	display: none!important;
+}
+</style>
+
+
+    {% for message in messages %}
+        {% if message.error %}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <strong>Error!</strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endif %}
+        {% ifequal message.tags "warning" %}
+        <!-- Warning Alert -->
+        <div class="alert alert-warning alert-dismissible fade show">
+            <strong>{{message.tags}}!</strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endifequal %}
+        {% ifequal message.tags "success" %}
+        <div class="alert alert-success alert-dismissible fade show">
+            <strong>{{message.tags}}!</strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endifequal %}
+    {% endfor %}
+    <div class="alert alert-info alert-dismissible fade show">
+        <strong>Info!</strong> {{order}}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+  
+    <select name="select" id="select" class="form-control" onchange="myFunction()">
+        <option value="">------Select upload Option---------</option>
+        <option id="department" value="department">upload per Department</option>
+        <option id="programme" value="programme">upload per Programme</option>
+    </select>
+    <br><br>
+   
+<div class="hidden"  id="deptWrapper">
+<form id="form" action="" method="post" enctype="multipart/form-data" class="">
+    {% csrf_token %}
+    <div class="row ">
+        <div class="col">
+            <label class="form-check-label" for="lname">Select Department <span>*</span></label>
+            <select name="department" required class="form-control" id="">
+                <option value="0">--------------</option>
+                {% for d in departments %}
+                    {% if staffDept.name == d.name %}
+                        <option value="{{d.name}}" selected >{{d.name}}</option>
+                    {% else %}
+                        <option value="{{d.name}}" >{{d.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col">
+            <label class="form-check-label" for="lname">Session <span>*</span></label>
+            <input type="text" required class="form-control" name="session" required placeholder="e.g 2019/2020">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <h4 class="mt-0 header-title">upload csv based on Department file<span>*</span></h4>
+            <div class="file-loading"> 
+            <input id="input-1" required name="deptFile"  type="file" multiple>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" style="margin-top: 20px; " type="submit" value="Upload">
+        </div>
+      
+    </div>
+ 
+    
+</form>
+<br>
+<div id="progress-box" class="hidden">progress</div>
+<div id="cancel-box" class="hidden">
+    <button id="cancel-btn" class="btn btn-danger">cancel</button>
+</div>
+</div>
+
+<div class="hidden"  id="progWrapper">
+    <form action="" method="post" enctype="multipart/form-data" class="">
+        {% csrf_token %}
+        <div class="row ">
+            <div class="col">
+                <label class="form-check-label" for="lname">Select Programme <span>*</span></label>
+                <select required name="programme" class="form-control" id="">
+                    <option value="0">--------------</option>
+                    {% for p in programme %}
+                        {% if staffProg.name == p.name %}
+                            <option value="{{p.name}}" selected >{{p.name}}</option>
+                        {% else %}
+                            <option value="{{p.name}}" >{{p.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <label class="form-check-label" for="lname">Session <span>*</span></label>
+                <input type="text" class="form-control" name="session" required placeholder="e.g 2019/2020">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <h4 class="mt-0 header-title">upload csv based on programme file <span>*</span></h4>
+                <div class="file-loading"> 
+                <input id="input-2" required name="progFile"  type="file" multiple>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <input class="btn btn-outline-danger btn-block" style="margin-top: 20px; " type="submit" value="Upload">
+            </div>
+          
+        </div>
+     
+        
+    </form>
+    </div>
+
+    
+
+
+    <script>
+        $(document).ready(function() {
+            
+            $("#input-1").fileinput({
+                showUpload: false,
+                dropZoneEnabled: false,
+                maxFileCount: 10,
+                mainClass: "input-group-lg",
+                allowedFileExtensions : ['csv'],
+                maxFilesNum: 1,
+                theme:'fas',
+            });
+            $("#input-2").fileinput({
+                showUpload: false,
+                dropZoneEnabled: false,
+                maxFileCount: 10,
+                mainClass: "input-group-lg",
+                allowedFileExtensions : ['csv'],
+                maxFilesNum: 1,
+                theme:'fas',
+            });
+        });
+        function myFunction() {
+
+            if(select[select.selectedIndex].value == 'department'){
+                document.getElementById('deptWrapper').classList.remove('hidden')
+                document.getElementById('progWrapper').classList.add('hidden')
+
+            }
+            else if(select[select.selectedIndex].value == 'programme'){
+                document.getElementById('progWrapper').classList.remove('hidden')
+                document.getElementById('deptWrapper').classList.add('hidden')
+            }
+            else if(select[select.selectedIndex].value == ''){
+                document.getElementById('progWrapper').classList.add('hidden')
+                document.getElementById('deptWrapper').classList.add('hidden')
+            }
+            
+                }
+        const uploadForm = document.getElementById('form')
+        const input = document.getElementById('input-1')
+        console.log(input)
+
+        const progressBox = document.getElementById('progress-box')
+        const cancelBox = document.getElementById('cancel-box')
+
+        const cancelBtn = document.getElementById('cancel-btn')
+        const csrf= document.getElementsByName('csrfmiddlewaretoken')
+
+        input.addEventListener('change', ()=>{
+            progressBox.classList.remove('hidden')
+            cancelBox.classList.remove('hidden')
+            const csv_data = input.files[0]
+            console.log(csv_data)
+        })
+     
+
+
+
+        </script>
+    
+    
+   
+    
+    
+    
+{% endblock content %}

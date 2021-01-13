@@ -1,0 +1,73 @@
+{% extends 'computation/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .space{
+        margin-bottom: 50px;
+    }
+    .spaceup{
+        margin-top: 20px;
+    }
+</style>
+<h3>Users </h3>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card m-b-30">
+                <div class="card-body">
+
+                    <h4 class="mt-0 header-title">Enter email and Username and save. User will see there password in there mail</h4>
+                  
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="row spaceup">
+                            <div class="col-md-12 space">
+                                
+                                {{form.email}}
+                        </div>
+                        </div>
+                        <div class="row spaceup">
+                            <div class="col-md-12 space">
+                               
+                                {{form.username}}
+                        </div>
+                        </div>
+                        <div class="row spaceup">
+                            <div class="col-md-12 space">
+                               
+                                {{form.first_name}}
+                        </div>
+                        </div>
+                        <div class="row spaceup">
+                            <div class="col-md-12 space">
+                                <select name="role" id="" class="form-control">
+                                    <option value="">------SELECT USER ROLE------</option>
+                                    <option value="HOD">H.O.D</option>
+                                    <option value="DEEN">DEEN</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                </select>
+                        </div>
+                        </div>
+
+                        <input type="submit" class=" btn btn-danger" value="Create">
+                        <h2>{{form.error}}</h2>
+
+                        
+                        
+                    </form>
+                </div>
+            </div>
+        </div> <!-- end col -->
+        
+        
+        </div>
+
+    
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder= "Email...";
+    form_fields[2].placeholder= "Username...";
+    form_fields[3].placeholder= "Name...";
+  </script>
+{% endblock %}

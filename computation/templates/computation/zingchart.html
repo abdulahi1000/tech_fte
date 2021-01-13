@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="{% static 'js/zingChart.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    
+</head>
+<body>
+
+
+    <h1>zing</h1>
+    <div id="myChart"></div>
+    <script>
+//         let myConfig = {
+//             type: 'bar',
+//             title: {
+//                 text: 'Data Basics',
+//                 fontSize: 24,
+//             },
+//             legend: {
+//                 draggable: true,
+//             },
+//             scaleX: {
+//                 // Set scale label
+//                 label: { text: 'Days' },
+//                 // Convert text on scale indices
+//                 labels: [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
+//             },
+//             scaleY: {
+//                 // Scale label with unicode character
+//                 label: { text: 'Temperature (°F)' }
+//             },
+//             plot: {
+//                 // Animation docs here:
+//                 // https://www.zingchart.com/docs/tutorials/styling/animation#effect
+//                 animation: {
+//                     effect: 'ANIMATION_EXPAND_BOTTOM',
+//                     method: 'ANIMATION_STRONG_EASE_OUT',
+//                     sequence: 'ANIMATION_BY_NODE',
+//                     speed: 275,
+//                 }
+//             },
+//             series: [
+//                 {
+//                     // Plot 1 values, linear data
+//                     values: [23,20,27,29,25,17,15],
+//                     text: 'Week 1',
+//                 },
+//                 {
+//                     // Plot 2 values, linear data
+//                     values: [35,42,33,49,35,47,35],
+//                     text: 'Week 2'
+//                 },
+//                 {
+//                     // Plot 2 values, linear data
+//                     values: [15,22,13,33,44,27,31],
+//                     text: 'Week 3'
+//                 }
+//             ]
+// };
+var state={
+    'dapartment':[],
+    'fte':[],
+}
+    var dataurl = '/data/'
+    $.ajax({
+        method:'GET',
+        url: dataurl,
+        success: function(response){
+            console.log(response)
+            for (var i in response){
+                var dept = Object.keys(response[i])[0]
+                var fte = Object.values(response[i])[0]
+
+                state.dapartment.push(dept)
+                state.fte.push(fte)
+            }
+            console.log('STATE: ',state)
+            buildChart()
+        }
+    })
+function buildChart(){
+    let myConfig ={
+    "type":"bar",
+    "scaleX":{
+        labels:state.dapartment
+    },
+    "series":[
+        {
+            values:state.fte,
+            text: "names"
+        },
+    ]
+}
+
+    // Render Method[3]
+    zingchart.render({
+    id: 'myChart',
+    data: myConfig,
+    });
+
+}
+    
+    </script>
+    
+</body>
+</html>

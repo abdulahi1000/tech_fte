@@ -1,0 +1,57 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Staff Upadate</h4>
+        </div>
+    </div>
+</div>
+<div class="card card-body">
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row spaceup">
+        <div class="col-md-6 space">
+            
+            {{form.staff_No}}
+        </div>
+        <div class="col-md-6 space">
+            {{form.name}}
+        </div>
+    </div>
+    <div class="row spaceup">
+        <div class="col-md-4 space">
+            {{form.programme}}
+        </div>
+        <div class="col-md-4 space">
+            {{form.email}}
+        </div>
+        <div class="col-md-4 space">
+            {{form.phone}}
+        </div>
+    </div>
+   
+    <div class="row ">
+        <div class="col-md-6 space">
+            
+            {{form.faculty}}
+        </div>
+        <div class="col-md-6 space">
+            {{form.profile_pic}}
+        </div>
+       
+    </div>
+    
+    <input class="btn btn-primary " type="submit" value="submit">
+    <a class="btn btn-outline-danger " href="{% url 'staff' %}"> cancel</a>
+</form>
+</div>
+<style>
+    .space{
+        margin-bottom: 50px;
+    }
+    .spaceup{
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

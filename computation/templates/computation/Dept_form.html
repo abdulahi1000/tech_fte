@@ -1,0 +1,36 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<style>
+    .list-group{
+    max-height: 350px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+</style>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.name.label}}
+    {{form.name}}
+    <br>
+    {{form.programme.label}}
+    <br>
+    <ul class="list-group">
+    {% for check in form.programme %}
+        <li >
+            <label for="">{{ check.choice_label }}</label>
+      {{ check.tag }}
+      <hr>
+    </li>
+    {% endfor %}
+</ul>
+    <input class="btn btn-primary " type="submit" value="submit">
+    <a class="btn btn-outline-danger " href="{% url 'deptPage' %}"> cancel</a>
+</form>
+
+<script>
+   
+</script>
+{% endblock %}

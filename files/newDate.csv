@@ -1,0 +1,22 @@
+reg_no, course_code, course_unit, programme, session, level
+ADA,MTH101,3,Biomedical Eng,2019/2020,1
+ADA,MTH102,3,Biomedical Eng,2019/2020,1
+ADA,MTH103,2,Biomedical Eng,2019/2020,1
+ADA,MTH114,4,Biomedical Eng,2019/2020,1
+ADA,MTH108,1,Biomedical Eng,2019/2020,1
+baba,MTH101,3,Biomedical Eng,2019/2020,1
+baba,MTH102,3,Biomedical Eng,2019/2020,1
+baba,MTH103,2,Biomedical Eng,2019/2020,1
+baba,MTH114,4,Biomedical Eng,2019/2020,1
+baba,MTH108,1,Biomedical Eng,2019/2020,1
+ola,MTH101,3,Biomedical Eng,2019/2020,1
+ola,MTH102,3,Biomedical Eng,2019/2020,1
+ola,MTH103,2,Biomedical Eng,2019/2020,1
+ola,MTH103,2,Biomedical Eng,2019/2020,1
+ola,MTH103,2,Biomedical Eng,2019/2020,1
+sola,MTH108,1,Biomedical Eng,2019/2020,1
+sola,MTH101,3,Biomedical Eng,2019/2020,1
+sola,MTH102,3,Biomedical Eng,2019/2020,1
+sola,MTH103,2,Biomedical Eng,2019/2020,1
+sola,MTH108,1,Biomedical Eng,2019/2020,1
+

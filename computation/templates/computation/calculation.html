@@ -1,0 +1,63 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<h3>welcome!</h3>
+{% for message in messages %}
+<!-- Error Alert -->
+<div class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+
+{% endfor%}
+<form action="" method="post">
+    {% csrf_token %}
+<div class="row ">
+        <div class="col-md-6" style="margin-top: 20px;">
+            <label class="form-check-label" for="lname">select level to calculate <span>*</span></label>
+            <select name="levels" required class="form-control" id="">
+                <option value="0">----------</option>
+                <option value="1">100l</option>
+                <option value="2">200l</option>
+                <option value="3">300l</option>
+                <option value="4">400l</option>
+                <option value="5">500l</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 " style="margin-top: 20px;">
+            <label class="form-check-label" for="lname">Select Programme <span>*</span></label>
+            <select name="prog" required class="form-control" id="">
+                <option value="0">----------</option>
+                {% for d in programme %}
+                    {% if staffDept == d.name %}
+                        <option value="{{d.name}}" selected >{{d.name}}</option>
+                    {% else %}
+                        <option value="{{d.name}}" >{{d.name}}</option>
+                    {% endif %}
+                {% endfor %}
+                
+            </select>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-md-6 " style="margin-top: 20px;">
+            <label for="session" class="form-check-label"> Select Session <span>*</span></label>
+                <select name="session" required class="form-control" id="">
+                    <option value="0">------------</option>
+                    {% for s in sesson%}
+                    <option value="{{s.session}}">{{s.session}}</option>
+                    {% endfor %}
+                </select>
+        </div>
+
+    </div><br>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" type="submit" value="submit">
+        </div>
+    </div>
+    
+</form>
+{% endblock %}

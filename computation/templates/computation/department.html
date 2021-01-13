@@ -1,0 +1,69 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+
+
+{% for message in messages %}
+<!-- Success Alert -->
+<div class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endfor %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group float-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                </ol>
+            </div>
+            <h4 class="page-title">Department</h4>
+        </div>
+    </div>
+</div>
+<div class="row w-100 space-down">
+    <div class="col-md-3 col-sm-6 col-lg-4 space-down" >
+        <div class="card border-warning mx-sm-1 p-3 d-flex align-items-stretch">
+            <div class="card border-warning shadow text-warning p-3 my-card" > <a class="btn btn-outline-warning btn-block btn-sm " href="{% url 'createDept' %}">Create</a></div>
+            <div class="text-warning text-center mt-3"><h5><i class="fab fa-accusoft"></i>Create new Department.</h5></div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="col-md-3 col-sm-6 col-lg-4">
+        <div class="card border-success mx-sm-1 p-3 d-flex align-items-stretch">
+            <div class="card border-success shadow text-success p-3 my-card" ><span aria-hidden="true"></span>Total number to Department available</div>
+            <div class="text-success text-center mt-2"><h1>{{deptCount}}</h1></div>
+        </div>
+    </div>
+  
+</div>
+<!-- end row -->
+<br>
+
+<div class="row">
+    <div class="col">
+       
+        <div class="card card-body">
+            <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>NAME</th>
+                    <th>Update</th>
+                    <th>delete</th>
+                </tr>
+                {% for dept in dept %}
+                <tr>
+                    <td>{{dept.name}}</td>
+                   
+                    
+                    <td><a class="btn btn-sm" style="background-color: #030303; color: #ffffff;" href="{% url 'updateDept' dept.id %}">update</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'deleteDept' dept.id %}" >Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

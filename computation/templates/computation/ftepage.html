@@ -1,0 +1,49 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <form action="" method="get">
+               
+                {{myfilters.form}}
+                <button class="btn btn-primary" type="submit">serach</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12 align-self-center">
+        <div class="card bg-white m-b-30">
+            <div class="card-body new-user">
+                <h5 class="header-title mb-4 mt-0">FULL TIME EQUIVALENT</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0" >DEPARTMENT</th>
+                                <th class="border-top-0" >FTE</th>
+                                <th class="border-top-0" >SESSION</th>
+                                <th class="border-top-0">LEVEL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fte in fte %}
+                            <tr>
+                                <td>{{ fte.programme}}</td>
+                                <td>{{ fte.fte}}</td>
+                                <td>{{ fte.session}}</td>
+                                <td>{{ fte.level}}</td>
+                            </tr>
+                               {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

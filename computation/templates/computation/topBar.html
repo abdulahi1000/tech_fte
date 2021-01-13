@@ -1,0 +1,42 @@
+<div class="topbar">
+
+    <nav class="navbar-custom">
+
+        <ul class="list-inline float-right mb-0">
+          
+
+            <li class="list-inline-item dropdown notification-list">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="false" aria-expanded="false">
+                    <img src="{{request.user.staff.profile_pic.url}}" alt="user" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5>Welcome</h5>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'profilePage' %}"><i class="fas fa-user-circle m-r-5 text-muted"></i> Profile</a>
+                    
+                    <a class="dropdown-item" href="{% url 'password_change' %}"><i class="fas fa-cog"></i> Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </li>
+
+        </ul>
+
+        <ul class="list-inline menu-left mb-0">
+            <li class="float-left">
+                <button class="button-menu-mobile open-left waves-light waves-effect">
+                    <i class="fas fa-bars"></i>
+                    
+                </button>
+            </li>
+           
+        </ul>
+
+        <div class="clearfix"></div>
+
+    </nav>
+
+</div>
