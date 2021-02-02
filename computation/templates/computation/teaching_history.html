@@ -1,0 +1,34 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group float-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                </ol>
+            </div>
+            <h4 class="page-title">Teaching History</h4>
+        </div>
+    </div>
+</div>
+<form action="" method="post">
+    {% csrf_token %}
+    <ul class="list-group">
+        {% for c in courses %}
+        <li>
+            <label class="margin">{{c.course_name}}</label>
+            <input class="form-control" type="checkbox" value="{{c.course_name}}" name="course" id="">
+
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" type="submit" name="course_btn" value="submit">
+        </div>
+    </div>
+</form>
+{% endblock%}

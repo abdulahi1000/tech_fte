@@ -31,6 +31,7 @@
                        
                         <li><a href="{% url 'ftepage' %}">List of FTE </a></li>
                         <li><a href="{% url 'studRaw' %}">Students Raw Data</a></li>
+                        <li><a href="{% url 'lecturerPage' %}">Add Lecturer</a></li>
                     </ul>
                 </li>
                 
@@ -107,19 +108,28 @@
                         <span>Programme</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{% url 'upload' %}" class="waves-effect">
                         <i class="fas fa-folder-open"></i>
                         <span> Upload</span>
                     </a>
+                </li> -->
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-folder-open"></i><span> Uploads </span>
+                        <span class="float-right"><i class="fas fa-angle-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'upload' %}">FTE upload</a></li>
+                        <li><a href="{% url 'courseUpload' %}">Course Details Upload</a></li>
+                        <li><a href="{% url 'lecturerUploadPage' %}">Lecturer Details Upload</a></li>
+                        <!-- <li><a href="advanced-rangeslider.html">Range Slider</a></li> lecturerUploadPage-->
+                    </ul>
                 </li>
-
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-calculator"></i><span> FTE Computation </span> <span class="float-right"><i class="fas fa-angle-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{% url 'calculation' %}">Claculate FTE </a></li>
                         <li><a href="{% url 'ftepage' %}">List of FTE </a></li>
-                        <!-- <li><a href="advanced-rangeslider.html">Range Slider</a></li> -->
+                        <li><a href="{% url 'Teaching' %}">Teaching Load</a></li>
                     </ul>
                 </li>
                 {% endifequal %}

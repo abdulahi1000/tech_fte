@@ -42,7 +42,7 @@
        
     </div>
     
-    <input class="btn btn-primary " type="submit" value="submit">
+    <input class="btn btn-primary " type="submit" value="update">
     <a class="btn btn-outline-danger " href="{% url 'staff' %}"> cancel</a>
 </form>
 </div>
@@ -54,4 +54,12 @@
         margin-top: 20px;
     }
 </style>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder= "Staff Number...";
+    form_fields[2].placeholder= "Name...";
+    form_fields[3].placeholder= "Email...";
+    form_fields[4].placeholder= "Phone Number...";
+    form_fields[5].placeholder= "Faculty...";
+  </script>
 {% endblock %}

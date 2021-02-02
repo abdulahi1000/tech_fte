@@ -1,0 +1,37 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<style>
+    .list-group{
+    max-height: 350px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+</style>
+<div class="card card-body">
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.full_name.label}}
+    {{form.full_name}}
+    <br>
+    {{form.lecturer_id.label}}
+    {{form.lecturer_id}}
+    <br>
+    {{form.programme.label}}
+    {{form.programme}}
+    <br>
+    {{form.department.label}}
+    {{form.department}}
+    <br>
+    {{form.faculty.label}}
+    {{form.faculty}}
+    <br>
+    {{form.errors}}
+
+    <input class="btn btn-primary " type="submit" value="submit">
+    <a class="btn btn-outline-danger " href="{% url 'lecturerPage' %}"> cancel</a>
+</form>
+</div>
+{% endblock %}

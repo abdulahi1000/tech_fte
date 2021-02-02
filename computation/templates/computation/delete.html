@@ -55,6 +55,19 @@
     </div>
     </form>
      {% endif %}
+    {% if lecturer %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <!-- Info Alert -->
+        <div class="alert alert-info alert-dismissible fade show">
+            Are you sure you want to Delete <strong>{{lecturer}} ?</strong>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <input class="btn btn-info " type="submit" value="Delete">
+    
+            <a class="btn btn-outline-danger " href="{% url 'lecturerPage' %}"> cancel</a>
+        </div>
+    </form>
+    {% endif %}
     
 
 {% endblock %}

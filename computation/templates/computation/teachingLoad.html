@@ -1,0 +1,225 @@
+{% extends 'computation/main.html' %}
+{% block content %}
+<style>
+    .list-group {
+        max-height: 350px;
+        margin-bottom: 10px;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+
+    }
+    .margin{
+        margin-bottom: -40px;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .fte{
+        margin-left: 30px !important;
+        top: 30px;
+    }
+    #content{
+  display:none;
+}
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Teaching load</h4>
+        </div>
+    </div>
+</div>
+
+{% for message in messages %}
+{% ifequal message.tags "error" %}
+<div class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endifequal %}
+{% ifequal message.tags "warning" %}
+<!-- Warning Alert -->
+<div class="alert alert-warning alert-dismissible fade show">
+    <strong>{{message.tags}}!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endifequal %}
+{% ifequal message.tags "success" %}
+<div class="alert alert-success alert-dismissible fade show">
+    <strong>{{message.tags}}!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endifequal %}
+{% endfor %}
+
+<div class=" " id="form-1">
+<form action="" method="post">
+    {% csrf_token %}
+<div class="row ">
+        <div class="col-md-6" style="margin-top: 20px;">
+            <label class="form-check-label" for="lname">select lecturer name <span>*</span></label>
+            <select name="lecturer" required class="form-control" id="">
+                <option value="0">----------</option>
+                {% for l in lecturers %}
+                <option value="{{l.full_name}}">{{l.full_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6 " style="margin-top: 20px;">
+            <label class="form-check-label" for="lname">Select Programme <span>*</span></label>
+            <select name="prog" required class="form-control" id="">
+                <option value="0">----------</option>
+                {% for d in programme %}
+                    {% if staffDept == d.name %}
+                        <option value="{{d.name}}" selected >{{d.name}}</option>
+                    {% else %}
+                        <option value="{{d.name}}" >{{d.name}}</option>
+                    {% endif %}
+                {% endfor %}
+                
+            </select>
+        </div>
+    </div><br><br>
+    <div class="row">
+        <div class="col-md-6 " style="margin-top: 20px;">
+            <label for="session" class="form-check-label"> Select Session <span>*</span></label>
+            <select name="session" required class="form-control" id="">
+                <option value="0">------------</option>
+                {% for s in session %}
+                <option name='session' value="{{s.session}}">{{s.session}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    
+    </div><br>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" id='btn-1'  name="details_btn" type="submit" value="submit" >
+        </div>
+    </div>
+    
+</form>
+</div>
+
+<div class="hidden" id='form-2' >
+    <form action="" method="post">
+        {% csrf_token %}
+        <ul class="list-group">
+            {% for c in courses %}
+            <li>
+                <label class="margin">{{c.course_name}}</label>
+                <input class="form-control" type="checkbox" value="{{c.course_name}}" name="course" id="">
+                
+                <hr>
+            </li>
+            {% endfor %}
+        </ul>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" id="btn-2" type="submit" name="course_btn" value="submit">
+        </div>
+    </div>
+    </form>
+</div>
+
+<div class="row hidden" id="details">
+    <div class="col-md-12 col-lg-12 col-xl-12 align-self-center">
+        <div class="card bg-white m-b-30">
+            <div class="card-body new-user">
+                <h5 class="header-title mb-4 mt-0">TEACHING LOAD</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">COURSE</th>
+                                <th class="border-top-0">CREDITS</th>
+                                <th class="border-top-0">ENROLMENT(N)</th>
+                                <th class="border-top-0">CREDIT HOURS(C)</th>
+                                <th class="border-top-0">PRODUCT(C*N)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in courseDetail %}
+                            <tr>
+                                <td>{{ c.course_code}}</td>
+                                <td>{{ c.credits}}</td>
+                                <td>{{ c.Enrolment}}</td>
+                                <td>{{ c.credit_hours}}</td>
+                                <td>{{ c.product}}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{totalProduct}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-3"><h1 class="fte"><b>FTE:</b></h1></div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                           
+                        </div>
+                        <div class="col-sm-4">
+                            <h4> {{fte|floatformat:2}} hrs/wk/session</h4>
+                            <h4>{{fte_semester|floatformat:2}} hrs/wk/semester</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="fte"><b>WORKLOAD:</b></h4>
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                    
+                        </div>
+                        <div class="col-sm-4">
+                            <h4> {{workload|floatformat:2}} hrs</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <button id="toggle">TOGGLE</button>
+<div id="content">Some content...</div> -->
+<script>
+    document.getElementById('btn-1').onclick = function(){
+        console.log('the button is clicked')
+        document.getElementById('form-1').classList.add('hidden')
+        document.getElementById('form-2').classList.remove('hidden')
+    };
+    document.getElementById('btn-2').onclick = function () {
+            console.log('the button is clicked')
+            document.getElementById('form-1').classList.add('hidden')
+            document.getElementById('details').classList.remove('hidden')
+        };
+    // function myFunction() {
+    //     document.getElementById('form-1').classList.add('hidden')
+    //     document.getElementById('details').classList.remove('hidden')
+    //     }
+    // var toggle = document.getElementById("toggle");
+    // var content = document.getElementById("content");
+
+    // toggle.addEventListener("click", function () {
+    //     console.log('clicked')
+    //     // document.getElementById('content').classList.add('hidden')
+    //     content.style.display = (content.dataset.toggled ^= 1) ? "block" : "none";
+    //     // content.style.display = content.dataset.toggled =  "block" ;
+    // });
+</script>
+
+{% endblock %}

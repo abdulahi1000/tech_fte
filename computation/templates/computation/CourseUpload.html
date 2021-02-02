@@ -1,0 +1,50 @@
+{% extends 'computation/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group float-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                </ol>
+            </div>
+            <h4 class="page-title">Course Details Upload</h4>
+        </div>
+    </div>
+</div>
+
+<form id="form" action="" method="post" enctype="multipart/form-data" class="">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <h4 class="mt-0 header-title">Upload csv file for Course Details <span>*</span></h4>
+            <div class="file-loading">
+                <input id="input-1" required name="courseFile" type="file" multiple>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input class="btn btn-outline-danger btn-block" style="margin-top: 20px; " type="submit" value="Upload">
+        </div>
+
+    </div>
+
+
+</form>
+
+<script>
+     $(document).ready(function () {
+
+            $("#input-1").fileinput({
+                showUpload: false,
+                dropZoneEnabled: false,
+                maxFileCount: 10,
+                mainClass: "input-group-lg",
+                allowedFileExtensions: ['csv'],
+                maxFilesNum: 1,
+                theme: 'fas',
+            });
+        })
+</script>
+{% endblock %}

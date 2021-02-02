@@ -1,21 +1,68 @@
+{% extends 'computation/main.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="text/javascript" src="{% static 'js/zingChart.min.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block content %}
+<style>
+    .space{
+        margin-bottom: 50px;
+    }
+    .spaceup{
+        margin-top: 20px;
+    }
+    .hidden {
+        display: none !important;
+    }
+</style>
+    <div class="" id='form-1'>
+    <form action="" method="POST" id="myForm">
+        {% csrf_token %}
+        <input type="text" placeholder="name">
+        <input type="text" placeholder="school">
+                
+        <!-- <input class="btn btn-primary" id="btn-1" type="submit" value="submit"> -->
+        <button type="submit" id="send"> submit</button>
+    </form>
+    </div>
+    <div class="hidden" id="details">
+        <p>i really want this to work </p>
+    </div>
+    <button id="details-btn" type="submit">Open</button>
     
+    <div class="" id='form-2' >
+        <form action="" method="POST" onsubmit="myFunction()">
+            {% csrf_token %}
+            <input type="text" placeholder="name">
+            <input type="text" placeholder="school">
     
-</head>
-<body>
-
+            <!-- <input class="btn btn-primary " id="btn-2" type="submit" value="submit"> -->
+            <button id="btn-2" type="submit">submitIt</button>
+        </form>
+    </div>
 
     <h1>zing</h1>
     <div id="myChart"></div>
+    
     <script>
+        $(document).ready(function ($) {
+                $('#myForm').on('submit', function (evt) {
+                    $('#myForm').hide();
+                });
+            });
+        function myFunction() {
+                $('#formid').hide();
+            }
+        document.getElementById('btn-1').onclick = function () {
+                console.log('the button is clicked')
+                document.getElementById('form-1').classList.add('hidden')
+                document.getElementById('form-2').classList.remove('hidden')
+            };
+            document.getElementById('btn-2').onclick = function () {
+                console.log('the button is clicked')
+                document.getElementById('form-1').classList.add('hidden')
+                document.getElementById('details').classList.remove('hidden')
+            }
+            document.getElementById('details-btn').onclick = function(){
+                document.getElementById('details').classList.remove('hidden')
+            }
 //         let myConfig = {
 //             type: 'bar',
 //             title: {
@@ -105,8 +152,7 @@ function buildChart(){
     });
 
 }
+
     
     </script>
-    
-</body>
-</html>
+{% endblock %}
