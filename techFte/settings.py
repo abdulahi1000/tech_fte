@@ -135,9 +135,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'wsgi', 'static', 'images')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
@@ -151,3 +153,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'abdulahiopeyemiq@gmail.com'
 EMAIL_HOST_PASSWORD = 'OPE2000yemi'
+
+if os.getcwd() == '/app':
+    DEBUG = False

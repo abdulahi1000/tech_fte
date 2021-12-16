@@ -797,6 +797,7 @@ def techingPage(request):
     product = []
     courseDetail = []
     totalProduct = 0
+    showform = True
 
     try:
         programme = Programme.objects.all()
@@ -810,6 +811,7 @@ def techingPage(request):
     lecturers = Lecturer.objects.all()
     session = Student.objects.values('session').distinct()
     if request.method == 'POST' and 'details_btn' in request.POST:
+        showform = False
         lecturer = request.POST['lecturer']
         prog = request.POST['prog']
         pickedSession = request.POST['session']
@@ -842,6 +844,7 @@ def techingPage(request):
         }
 
         request.session['data'] = data
+        
 
         # teaching = TeachingLoad(session=pickedSession,
         #                         student_teacher_ratio=studentTeacherRatio)
@@ -866,9 +869,11 @@ def techingPage(request):
     # teaching.save(commit=False)
 
     if request.method == 'POST' and 'course_btn' in request.POST and 'data' in request.session:
+        showform = False
         fte = 0
         fte_semester = 0
         workload = 0
+        
 
         # print(Programme.objects.filter(name__in=lecturerProgramme))
         # departmentalStud = Student.objects.values('reg_no').filter(Q(session=session) & Q(
@@ -956,6 +961,7 @@ def techingPage(request):
     totalProduct = totalProduct
 
     context = {
+        'showform':showform,
         'programme': programme,
         'staffDept': staffDept,
         'session': session,

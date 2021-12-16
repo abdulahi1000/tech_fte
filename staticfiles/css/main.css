@@ -1,0 +1,15 @@
+body{
+    background-color:#ffff !important;
+}
+.border{
+    height: 100px;
+    width: 100px;
+}
+.form-btn{
+    background-color: transparent !important;
+    border: #ED1C24;
+}
+.space-down{
+    margin-bottom: 20px;
+    bottom: 50px;
+}

@@ -1,0 +1,1 @@
+web: gunicorn techFte.wsgi --log-file -

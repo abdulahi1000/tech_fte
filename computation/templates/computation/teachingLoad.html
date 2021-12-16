@@ -52,8 +52,8 @@
 </div>
 {% endifequal %}
 {% endfor %}
-
-<div class=" " id="form-1">
+{{showform}}
+{% if showform %}
 <form action="" method="post">
     {% csrf_token %}
 <div class="row ">
@@ -103,9 +103,9 @@
     </div>
     
 </form>
-</div>
+{% endif %}
+{% if courses %}
 
-<div class="hidden" id='form-2' >
     <form action="" method="post">
         {% csrf_token %}
         <ul class="list-group">
@@ -126,15 +126,18 @@
         </div>
     </div>
     </form>
-</div>
 
-<div class="row hidden" id="details">
-    <div class="col-md-12 col-lg-12 col-xl-12 align-self-center">
+{% endif %}
+
+{% if courseDetail %}
+<button class="btn btn-white" onclick="window.print('#printarea');"><i class="fa fa-print fa-lg"></i>
+    Print</button>&nbsp;
+    <div class="col-md-12 col-lg-12 col-xl-12 align-self-center" id="printarea">
         <div class="card bg-white m-b-30">
             <div class="card-body new-user">
                 <h5 class="header-title mb-4 mt-0">TEACHING LOAD</h5>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th class="border-top-0">COURSE</th>
@@ -161,10 +164,26 @@
                                 <td></td>
                                 <td>{{totalProduct}}</td>
                             </tr>
-
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><h5> FTE</h5></td>
+                                <td><h5>{{fte|floatformat:2}} hrs/wk/session<br>
+                                {{fte_semester|floatformat:2}} hrs/wk/semester</h5></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><h5> WORKLOAD</h5></td>
+                                <td>
+                                    <h5>{{workload|floatformat:2}} hrs</h5>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-3"><h1 class="fte"><b>FTE:</b></h1></div>
                         <div class="col-sm-3"></div>
                         <div class="col-sm-2">
@@ -186,40 +205,13 @@
                         <div class="col-sm-4">
                             <h4> {{workload|floatformat:2}} hrs</h4>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- <button id="toggle">TOGGLE</button>
-<div id="content">Some content...</div> -->
-<script>
-    document.getElementById('btn-1').onclick = function(){
-        console.log('the button is clicked')
-        document.getElementById('form-1').classList.add('hidden')
-        document.getElementById('form-2').classList.remove('hidden')
-    };
-    document.getElementById('btn-2').onclick = function () {
-            console.log('the button is clicked')
-            document.getElementById('form-1').classList.add('hidden')
-            document.getElementById('details').classList.remove('hidden')
-        };
-    // function myFunction() {
-    //     document.getElementById('form-1').classList.add('hidden')
-    //     document.getElementById('details').classList.remove('hidden')
-    //     }
-    // var toggle = document.getElementById("toggle");
-    // var content = document.getElementById("content");
-
-    // toggle.addEventListener("click", function () {
-    //     console.log('clicked')
-    //     // document.getElementById('content').classList.add('hidden')
-    //     content.style.display = (content.dataset.toggled ^= 1) ? "block" : "none";
-    //     // content.style.display = content.dataset.toggled =  "block" ;
-    // });
-</script>
+{% endif %}
 
 {% endblock %}
